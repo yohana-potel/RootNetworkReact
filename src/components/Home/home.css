@@ -1,0 +1,88 @@
+
+
+/* Contenedor principal */
+.home-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
+    background-color: #d9d9db;
+    margin: 0;
+}
+
+
+/* Estilo para el logo */
+.logo {
+    width: 500px; 
+    height: 500px; 
+    object-fit: contain; 
+    animation: spin 5s ease-out 1 forwards;
+}
+@media  (min-width:300px) and (max-width:600px) {
+    .home-container{
+        display: flex;
+        justify-content: space-around;
+    }
+    .logo {
+        width: 90%;
+    }
+    .logo-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content:first baseline
+    }
+
+    .login-container{
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        justify-content: center;
+        margin-right: 20px;
+    }
+    .btn-danger{
+        width: 95%;
+        height: 5%;
+    }
+    h2 {
+        font-size: 5vw; 
+    }
+      
+    .login-container p{
+        font-size: 3vw; 
+    }
+      
+
+}
+
+/* Animación de giro */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(120, 231, 179, 0.5);
+    z-index: 1040; 
+}
+
+
+.modal-dialog {
+    max-width: 90%;
+    width: auto;
+  }
+  
+  @media (min-width: 576px) {
+    .modal-dialog {
+      max-width: 500px;
+    }
+  }
