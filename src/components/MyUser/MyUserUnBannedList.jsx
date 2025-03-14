@@ -1,114 +1,98 @@
-import { Table } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Table, Button } from 'react-bootstrap';
+import { ImSpinner3 } from 'react-icons/im';
+import '../../styles/Global.css';
 
-const UserBannedList = ({ bannedUsers, unbanUser }) => {
-    
-    const [bans, setBans] = useState([]);
+const NonAdminUserList = () => {
+    const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
-    
-    const fetchBans = async () => {
-            try {
-                const response = await fetch('http://localhost:5156/UserBan?page=1&pageSize=10');
-                const data = await response.json();
-    
-                if (data.data) {
-                    const bansWithUserData = await Promise.all(
-                        data.data.map(async (ban) => {
-                            const userResponse = await fetch(`http://localhost:5156/User/${ban.userId}`);
-                            const userData = await userResponse.json();
-    
-                            return {
-                                ...ban,
-                                name: userData.name,
-                                lastName: userData.lastName,
-                            };
-                        })
-                    );
-    
-                    setBans(bansWithUserData);
-                }
-            } catch (error) {
-                console.error('Error al cargar los baneos:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-    
-        useEffect(() => {
-            fetchBans();
-        }, []);
 
-    async function unbanUser(banId) {
-        console.log("Intentando desbanear usuario con ID:", banId);
-
+    // Función para obtener los usuarios no administradores
+    const fetchNonAdminUsers = async () => {
         try {
-            const response = await fetch(`http://localhost:5156/UserBan/unlock/${banId}`, {
-                method: 'PUT',
-                headers: {
-                    'Accept': '*/*',
-                }
-            });
+            const response = await fetch('http://localhost:5156/User/non-admin?page=1&pageSize=5');
+            const data = await response.json();
 
-            if (!response.ok) {
-                const errorText = await response.text();
-                throw new Error(`Error al desbanear el usuario: ${errorText}`);
-            }
-
-            console.log(`Usuario ${banId} desbaneado con éxito`);
-
-            // Buscamos el usuario correcto usando userId
-            const bannedUser = bannedNonAdmins.find(ban => ban.userId === banId);
-
-            if (bannedUser) {
-                // Eliminamos de la lista de baneados
-                setBannedNonAdmins(prevBanned => prevBanned.filter(ban => ban.userId !== banId));
-
-                // Agregamos a la lista de usuarios activos
-                setUsers(prevUsers => [...prevUsers, bannedUser]);
-            } else {
-                console.warn("El usuario desbaneado no se encontró en la lista de baneados.");
+            if (data.data) {
+                setUsers(data.data);
             }
         } catch (error) {
-            console.error("Error al desbanear:", error);
+            console.error('Error al cargar los usuarios no administradores:', error);
+        } finally {
+            setLoading(false);
         }
-    }
+    };
+
+    useEffect(() => {
+        fetchNonAdminUsers();
+    }, []);
+
+    const banUser = (userId) => {
+        fetch(`http://localhost:5156/UserBan/ban/${userId}`, {
+            method: 'PUT',
+            headers: {
+                'Accept': '*/*',
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Eliminamos al usuario de la lista de usuarios no administradores
+                setUsers(prevUsers => prevUsers.filter(user => user.id !== userId));
+            } else {
+                console.error("Error al banear:", data.message);
+            }
+        })
+        .catch(error => {
+            console.error("Error al banear:", error);
+        });
+    };
 
     return (
-        <div className="banned-users-container">
-            <h3>Usuarios Baneados </h3>
-            <Table striped bordered hover responsive>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Motivo</th>
-                        <th>Acción</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {bans.length > 0 ? (
-                        bans.map((ban) => (
-                            <tr key={ban.id}>
-                                <td>{ban.id}</td>
-                                <td>{ban.name || 'Desconocido'}</td>
-                                <td>{ban.lastName || 'Desconocido'}</td>
-                                <td>{ban.reason}</td>
-                                <td>
-                                    <button onClick={() => unbanUser(ban.id)} className="btn-unban">Desbanear</button>
+        <div className="container mt-4">
+            <h1 className="mb-4">Lista de Usuarios No Administradores</h1>
+
+            {loading ? (
+                <div className="text-center">
+                    <ImSpinner3 size={40} className="text-primary spin-animation" />
+                    <p>Cargando usuarios no administradores...</p>
+                </div>
+            ) : (
+                <Table striped bordered hover responsive>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {users.length > 0 ? (
+                            users.map((user) => (
+                                <tr key={user.id}>
+                                    <td>{user.id}</td>
+                                    <td>{user.name || 'Desconocido'}</td>
+                                    <td>{user.lastName || 'Desconocido'}</td>
+                                    <td>
+                                        <Button onClick={() => banUser(user.id)}>
+                                            Banear
+                                        </Button>
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan="4" className="text-center">
+                                    No hay usuarios no administradores.
                                 </td>
                             </tr>
-                        ))
-                    ) : (
-                        <tr>
-                            <td colSpan="5">No hay usuarios baneados.</td>
-                        </tr>
-                    )}
-                </tbody>
-            </Table>
+                        )}
+                    </tbody>
+                </Table>
+            )}
         </div>
     );
 };
 
-export default UserBannedList;
-
-
+export default NonAdminUserList;

@@ -3,7 +3,7 @@ import { Table } from 'react-bootstrap';
 import { ImSpinner3 } from 'react-icons/im';
 import { Link } from 'react-router-dom';
 
-// Componente principal AdminList
+
 const AdminList = () => {
     const [query, setQuery] = useState("");
     const [page, setPage] = useState(1);
@@ -20,7 +20,7 @@ const AdminList = () => {
             if (!response.ok) throw new Error('Error fetching admin users');
             const data = await response.json();
 
-            setUsers(data.data || data);  // Se actualiza la lista completa de usuarios
+            setUsers(data.data || data);  
 
         } catch (error) {
             console.error('Error fetching admin users:', error);
@@ -59,10 +59,10 @@ const AdminList = () => {
         }
     }, []);
 
-    // Filtrar usuarios que no estén baneados
+
     const filteredUsers = users.filter(user => !bannedAdmins.some(banned => banned.userId === user.id));
 
-    // Efecto para cargar administradores y administradores baneados
+  
     useEffect(() => {
         fetchAdmins();
     }, [fetchAdmins]);
@@ -71,18 +71,18 @@ const AdminList = () => {
         fetchBannedAdmins();
     }, [fetchBannedAdmins]);
 
-    // Manejar cambios en la búsqueda
+  
     const handleSearchChange = (evt) => {
         setQuery(evt.target.value);
     };
 
-    // Iniciar una nueva búsqueda
+  
     const handleSearchClick = () => {
         setPage(1);
         fetchAdmins();
     };
 
-    // Cambiar página
+   
     const prevPage = () => {
         if (page > 1) setPage(prev => prev - 1);
     };
@@ -91,7 +91,7 @@ const AdminList = () => {
         setPage(prev => prev + 1);
     };
 
-    // Banear administrador y actualizar las listas
+
     const banAdmin = async (userId) => {
         const requestBody = {
             StartDateTime: new Date().toISOString(),
@@ -116,7 +116,7 @@ const AdminList = () => {
 
             console.log(`Usuario ${userId} baneado con éxito`);
 
-            // Actualizar la lista de administradores eliminando el baneado
+ 
             setUsers(prevUsers => prevUsers.filter(user => user.id !== userId));
 
             // Agregar el usuario baneado a la lista de baneados
@@ -125,7 +125,6 @@ const AdminList = () => {
                 setBannedAdmins(prevBanned => [...prevBanned, { ...bannedUser, userId }]);
             }
 
-            // Refrescar las listas de administradores y baneados
             await fetchAdmins();
             await fetchBannedAdmins();
 

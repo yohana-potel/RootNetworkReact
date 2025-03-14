@@ -12,7 +12,7 @@ const NavBar = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        {/* Opción ADMIN con submenú usando Bootstrap Dropdown */}
+                       
                         <Dropdown>
                             <Dropdown.Toggle variant="link" id="dropdown-admin" className="text-dark">
                                 ADMIN
@@ -23,7 +23,7 @@ const NavBar = () => {
                             </Dropdown.Menu>
                         </Dropdown>
 
-                        {/* Opción USERS */}
+                  
                         <Nav.Link as={Link} to="/User">USERS</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>

@@ -25,19 +25,17 @@ export const Home = () => {
     const handleClose = () => setShowModal(false);
 
     const handleLogout = () => {
-        // Eliminar entradas específicas del localStorage
+       
         localStorage.removeItem('isLoggedIn');
         localStorage.removeItem('isAdmin');
         localStorage.removeItem('userId');
 
-        // Limpiar todo el localStorage (opcional)
-        // localStorage.clear();
-
-        // Actualizar el estado del componente
+       
+        
         setIsLoggedIn(false);
         setIsAdmin(false);
 
-        // Mostrar nuevamente el modal de inicio de sesión
+       
         setShowModal(true);
     };
 
@@ -67,33 +65,33 @@ export const Home = () => {
                     localStorage.setItem('isAdmin', 'true');
                     localStorage.setItem('userId', data.id);
     
-                    handleClose(); // Cerrar el modal de inicio de sesión
+                    handleClose(); 
                 } else {
-                    // Si no es administrador, mostrar mensaje de error y resetear campos
+              
                     setError('No tienes permisos de administrador para iniciar sesión.');
-                    setEmail(''); // Limpiar el campo de email
-                    setPassword(''); // Limpiar el campo de contraseña
-                    setShowModal(true); // Mantener o volver a mostrar el modal
+                    setEmail(''); 
+                    setPassword(''); 
+                    setShowModal(true); 
                 }
             } else {
-                // Error en la respuesta del servidor
+                
                 setError(data.message || 'Error en el inicio de sesión');
-                setEmail(''); // Limpiar campos en caso de error
+                setEmail(''); 
                 setPassword('');
-                setShowModal(true); // Mostrar el modal nuevamente
+                setShowModal(true); 
             }
         } catch (err) {
-            // Error en la conexión al servidor o de red
+            
             setError('Error de red o servidor');
-            setEmail(''); // Limpiar campos en caso de error
+            setEmail(''); 
             setPassword('');
-            setShowModal(true); // Mostrar el modal nuevamente
+            setShowModal(true); 
         }
     };
 
     return (
         <div className="home-container">
-            {/* Capa de superposición para deshabilitar la interacción con la página */}
+            
             {showModal && <div className="overlay"></div>}
 
             {!isLoggedIn && (

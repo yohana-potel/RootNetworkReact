@@ -9,19 +9,19 @@ const EditAdminUser = () => {
     const [birthdate, setBirthdate] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-    const { id } = useParams(); // Obtenemos el ID del usuario desde la URL
+    const { id } = useParams(); 
 
-    // useEffect para cargar los datos del usuario cuando se monta el componente
+    
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await fetch(`http://localhost:5156/User/${id}`); // Aquí obtenemos los datos
+                const response = await fetch(`http://localhost:5156/User/${id}`); 
                 if (response.ok) {
                     const data = await response.json();
                     setName(data.name);
                     setLastName(data.lastName);
                     setMail(data.mail);
-                    setBirthdate(data.birthdate ? data.birthdate.split('T')[0] : ''); // Formateamos la fecha a 'YYYY-MM-DD'
+                    setBirthdate(data.birthdate ? data.birthdate.split('T')[0] : ''); 
                 } else {
                     alert('Error al cargar los datos del usuario.');
                 }
@@ -36,20 +36,20 @@ const EditAdminUser = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Si la contraseña está vacía, no la enviamos
+    
         const userData = { 
             id, 
             name, 
             lastName, 
             mail, 
             birthdate, 
-            password: password || undefined, // Si no hay contraseña, no la enviamos
+            password: password || undefined, 
             isAdmin: true 
         };
 
         try {
             const response = await fetch(`http://localhost:5156/User/${id}`, {
-                method: 'PUT', // Cambiamos el método a PUT
+                method: 'PUT', 
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(userData),
             });
@@ -61,7 +61,7 @@ const EditAdminUser = () => {
             }
 
             alert('Usuario editado correctamente.');
-            navigate('/admin/ABM'); // Redirige a la lista de administradores después de guardar
+            navigate('/admin/ABM'); 
         } catch (error) {
             console.error('Error editando usuario:', error);
         }

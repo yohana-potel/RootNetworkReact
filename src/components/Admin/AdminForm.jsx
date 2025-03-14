@@ -4,7 +4,7 @@ import { Form, Button } from 'react-bootstrap';
 import '../../styles/Global.css';
 
 const AdminForm = () => {
-    const { id } = useParams(); // Para obtener el ID del usuario si estamos editando
+    const { id } = useParams(); 
     const history = useHistory();
     const [user, setUser ] = useState({
         name: '',
@@ -16,7 +16,7 @@ const AdminForm = () => {
 
     useEffect(() => {
         if (id) {
-            // Si hay un ID, significa que estamos editando un usuario
+           
             const fetchUser  = async () => {
                 setLoading(true);
                 try {
@@ -52,7 +52,7 @@ const AdminForm = () => {
                 body: JSON.stringify(user),
             });
             if (!response.ok) throw new Error('Error saving user data');
-            history.push('/admin'); // Redirigir a la lista de administradores
+            history.push('/admin'); 
         } catch (error) {
             console.error('Error saving user:', error);
         } finally {

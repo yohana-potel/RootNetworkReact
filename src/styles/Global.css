@@ -176,16 +176,16 @@ input::placeholder {
     .btn-search,
     .btn-ban,.btn-edit,.button,
     .nav-buttons .btn-new,
-    .table td .btn, /* Estilo para los botones dentro de las filas de la tabla */
+    .table td .btn,
     .btn-new {
         padding: 10px 20px;
-        background-color: var(--primary-color); /* Usando la variable --primary-color */
+        background-color: var(--primary-color); 
         color: #fff;
         border-radius: 4px;
         cursor: pointer;
         border: none;
         text-align: center;
-        text-decoration: none; /* Sin subrayado en los botones de tipo enlace */
+        text-decoration: none; 
         display: inline-block;
     }
     
