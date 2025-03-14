@@ -10,7 +10,7 @@ const AdminBannedList = () => {
     // Función para obtener los baneos y completar con nombre y apellido
     const fetchBans = async () => {
         try {
-            const response = await fetch('http://localhost:5156/UserBan?page=1&pageSize=5');
+            const response = await fetch('http://localhost:5156/UserBan?page=1&pageSize=10');
             const data = await response.json();
 
             if (data.data) {

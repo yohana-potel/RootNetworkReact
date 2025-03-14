@@ -1,5 +1,5 @@
 :root { 
-    --primary-color: #89a034; /* Color principal para todos los botones */
+    --primary-color: #89a034; 
 }
 
 /* Estilos generales */
@@ -35,34 +35,33 @@ body {
 }
 
 /* Botón de búsqueda */
-.btn-search,.submit-button,
-.nav-buttons .btn-new,.btn-ban,.btn-edit,.back-button,
-.table td .btn, /* Estilo para los botones dentro de las filas de la tabla */
+.btn-search, .submit-button, 
+.nav-buttons .btn-new, .btn-ban, .btn-edit, .back-button,
+.table td .btn, 
 .btn-new {
     padding: 10px 20px;
-    background-color: var(--primary-color); /* Usando la variable --primary-color */
+    background-color: var(--primary-color); 
     color: #fff;
     border-radius: 4px;
     cursor: pointer;
     border: none;
     text-align: center;
-    text-decoration: none; /* Sin subrayado en los botones de tipo enlace */
+    text-decoration: none;
     display: inline-block;
 }
-.btn-search:hover,.submit-button:hover,
-.btn-new:hover,.btn-edit:hover,.btn-ban:hover,.back-button:hover,
-.nav-buttons .btn-new:hover,
+
+.btn-search:hover, .submit-button:hover, 
+.btn-new:hover, .btn-edit:hover, .btn-ban:hover, .back-button:hover,
+.nav-buttons .btn-new:hover, 
 .table td .btn:hover { 
-    background-color: #353f10; /* Un color más oscuro para el hover */
+    background-color: #353f10; 
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: 0.3s;
 }
 
-
-.btn-search:focus,.submit-button:focus,
-.btn-new:focus,
-.btn-ban:focus,.btn-edit:focus,
-.nav-buttons .btn-new:focus,.back-button:focus,
+.btn-search:focus, .submit-button:focus, 
+.btn-new:focus, .btn-ban:focus, .btn-edit:focus,
+.nav-buttons .btn-new:focus, .back-button:focus, 
 .table td .btn:focus {
     outline: none;
 }
@@ -118,8 +117,6 @@ body {
     color: #bcdb49;
 }
 
-
-
 input {
     padding: 10px;
     margin-top: 100px;
@@ -129,18 +126,17 @@ input {
     transition: all 0.3s ease;
 }
 
-
 input:focus {
     border-color: var(--primary-color);
     box-shadow: 0 0 8px rgba(76, 175, 80, 0.5); 
     outline: none; 
 }
 
-
 input::placeholder {
     color: #aaa;
 }
-.admin-form{
+
+.admin-form {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -151,12 +147,7 @@ input::placeholder {
     justify-content: space-between; 
 }
 
-
-
-
-
 @media  (min-width:300px) and (max-width:600px) {
-    
     .search-container {
         display: flex;
         gap: 10px;
@@ -173,11 +164,8 @@ input::placeholder {
     }
     
     /* Botón de búsqueda */
-    .btn-search,
-    .btn-ban,.btn-edit,.button,
-    .nav-buttons .btn-new,
-    .table td .btn,
-    .btn-new {
+    .btn-search, .btn-ban, .btn-edit, .button,
+    .nav-buttons .btn-new, .table td .btn, .btn-new {
         padding: 10px 20px;
         background-color: var(--primary-color); 
         color: #fff;
@@ -203,7 +191,6 @@ input::placeholder {
         justify-content: flex-end;
         margin-bottom: 20px;
     }
-    
     
     .table {
         width: 100%;
@@ -233,25 +220,56 @@ input::placeholder {
         color: #bcdb49;
     }
     
-    .admin-list-container{
+    .admin-list-container {
         width: 100%;
-    
     }
     
-    .table-container{
+    .table-container {
         width: 100%;
         display: flex;
         justify-content: flex-start;
         overflow-y: auto;
     }
+
     .btn-new {
         width: 50%; 
         font-size: 3vw; 
     }
 
-    .admin-form{
+    .admin-form {
         width: 80%;
     }
-    
-      
-  }
+}
+
+/* Modal para banear usuario */
+.modal .btn-ban, .modal .btn-search, .modal .submit-button, 
+.modal .nav-buttons .btn-new, .modal .btn-edit, .modal .back-button,
+.modal .table td .btn, .modal .btn-new {
+    padding: 10px 20px;
+    background-color: var(--primary-color); 
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.modal .btn-ban:hover, .modal .btn-search:hover, .modal .submit-button:hover, 
+.modal .btn-new:hover, .modal .btn-edit:hover, .modal .btn-ban:hover, .modal .back-button:hover, 
+.modal .nav-buttons .btn-new:hover, .modal .table td .btn:hover { 
+    background-color: #353f10; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+}
+
+.modal .btn-ban:focus, .modal .btn-search:focus, .modal .submit-button:focus, 
+.modal .btn-new:focus, .modal .btn-ban:focus, .modal .btn-edit:focus,
+.modal .nav-buttons .btn-new:focus, .modal .back-button:focus, 
+.modal .table td .btn:focus {
+    outline: none;
+}
+
+
+

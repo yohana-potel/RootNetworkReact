@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Table, Modal, Button, Form } from 'react-bootstrap';
 import { ImSpinner3 } from 'react-icons/im';
+import '../../styles/Global.css';
 
 // Componente principal MyUser
 const MyUser = () => {
@@ -189,7 +190,7 @@ const MyUser = () => {
                 <button className="btn-new" onClick={() => setPage(prev => prev + 1)}>Siguiente</button>
             </div>
 
-            {/* Modal para banear usuario */}
+           {/* Modal para banear usuario */}
             <Modal show={showModal} onHide={closeBanModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>Banear Usuario</Modal.Title>
@@ -216,14 +217,15 @@ const MyUser = () => {
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={closeBanModal}>
+                    <Button variant="secondary" onClick={closeBanModal} className="btn-ban">
                         Cancelar
                     </Button>
-                    <Button variant="primary" onClick={banUser}>
+                    <Button onClick={banUser} className="btn-ban">
                         Confirmar Baneo
                     </Button>
                 </Modal.Footer>
             </Modal>
+
         </div>
     );
 };
